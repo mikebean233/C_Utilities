@@ -9,9 +9,13 @@
 #define GREATER_OR_EQUAL 0x08
 #define EQUAL            0x0F
 
+#define TRUE             0x01
+#define FALSE            0x00
+
 // status flags
 #define FAILURE          0x0
 #define SUCCESS          0x1
+
 
 int status;
 void testStringCompareIgnoreCase(char* inputA, char* inputB, int flags, int value);
@@ -69,6 +73,7 @@ int main(){
     expectedResults[2] = "123";
     testTokenize(" ...sdf    a.a 123 ", expectedResults, 3);
 
+
     if(status == SUCCESS)
         printf("PASSED\n");
 
@@ -88,9 +93,9 @@ void testStringCompareIgnoreCase(char* inputA, char* inputB, int flags, int valu
     }
 }
 
-void testTokenize(char* input, char** result, int tokenCountTarget){
+void testTokenize(char* input, char** targetResult, int tokenCountTarget){
     int tokenCount = 0;
-    int haveCorrectResult = 0;
+    int haveCorrectResult = TRUE;
     testCountTokens(input, tokenCountTarget);
     if(status != SUCCESS)
         return;
@@ -99,8 +104,8 @@ void testTokenize(char* input, char** result, int tokenCountTarget){
 
     int i = 0;
     for (; i < tokenCount; ++i)
-        if (!(strcmp(result[i], thisResult[i]))) {
-            haveCorrectResult = 1;
+        if ( strcmp(targetResult[i], thisResult[i])) {
+            haveCorrectResult = FALSE;
             break;
         }
 
@@ -112,12 +117,12 @@ void testTokenize(char* input, char** result, int tokenCountTarget){
 
         fprintf(stderr, "Tokens should be: \n");
         for (; correctTokenIndex < tokenCountTarget; ++correctTokenIndex) {
-            fprintf(stderr, "correctToken[%d] = \"%s\"\n", correctTokenIndex, result[correctTokenIndex]);
+            fprintf(stderr, "correctToken[%d] = \"%s\"\n", correctTokenIndex, targetResult[correctTokenIndex]);
         }
 
         fprintf(stderr, "Produced Tokens: \n");
         for (; incorrectTokenIndex < tokenCount; ++incorrectTokenIndex) {
-            fprintf(stderr, "producedToken[%d] = \"%s\"\n", incorrectTokenIndex, result[incorrectTokenIndex]);
+            fprintf(stderr, "producedToken[%d] = \"%s\"\n", incorrectTokenIndex, thisResult[incorrectTokenIndex]);
         }
     }
 

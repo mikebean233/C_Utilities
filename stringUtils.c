@@ -1,6 +1,8 @@
 #include <string.h>
 #include <ctype.h>
-#include"stringutils.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include "stringutils.h"
 
 
 int stringCompareIgnoreCase(char *a, char *b) {
@@ -109,7 +111,7 @@ char ** tokenize(char *input, int *tokenCount){
         followChar = input[i];
 
         int leadOnToken   = !isspace((int)leadChar)   && leadChar != '\0';
-        int followOnToken = !isspace((int)followChar) && leadChar != '\0';
+        int followOnToken = !isspace((int)followChar) && followChar != '\0';
 
         // we are just stepping onto a token
         if(!followOnToken && leadOnToken){
