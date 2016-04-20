@@ -6,5 +6,6 @@ int stripNewLines(char* input);
 char ** tokenize(char *input, int *tokenCount);
 int countTokens(char* input);
 char* stringCopy(char* input, int length);
+int findFirstOccurence(char* input, char target);
 
 #endif //STRINGUTILS_H

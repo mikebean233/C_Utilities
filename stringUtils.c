@@ -89,7 +89,7 @@ char ** tokenize(char *input, int *tokenCount){
     if(tokenCount == NULL)
         fprintf(stderr, "Error: tokenize() received a NULL pointer for tokenCount\n");
 
-    if(!((int)input | (int)tokenCount))
+    if(!(input || tokenCount))
         return NULL;
 
     (*tokenCount) = countTokens(input);
@@ -160,3 +160,18 @@ char* stringCopy(char* input, int length){
     output[i] = '\0';
     return output;
 }
+
+
+int findFirstOccurence(char* input, char target){
+    if(input == NULL)
+        return -1;
+    int i = 0;
+    int length = strlen(input);
+    for(; i < length; ++i){
+        if(input[i] == target)
+            return i;
+    }
+    return -1;
+}
+
+
